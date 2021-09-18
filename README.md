@@ -5,3 +5,8 @@ Just a cool little game prototype
 ```
 ionic build
 ```
+
+## Serve
+```
+ionic serve
+```
