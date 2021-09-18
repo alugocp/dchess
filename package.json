@@ -1,0 +1,15 @@
+{
+  "name": "dchess",
+  "version": "1.0.0",
+  "description": "Dungeon Chess",
+  "scripts": {
+    "ionic:build": "gulp compile"
+  },
+  "author": "Alex Lugo",
+  "license": "ISC",
+  "devDependencies": {
+    "@ionic/cli": "^6.17.1",
+    "gulp": "^4.0.2",
+    "gulp-tsc": "^1.3.2"
+  }
+}
