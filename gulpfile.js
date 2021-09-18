@@ -1,12 +1,12 @@
 const gulp = require('gulp');
-const typescript = require('gulp-tsc');
+const ts = require('gulp-typescript');
 const concat = require('gulp-concat');
 const minify = require('gulp-minify');
 const del = require('del');
 const paths = {
-  build: ['./www/*', './www/**/*'],
+  static: ['./static/*', './static/**/*'],
   ts: ['./src/*.ts', './src/**/*.ts'],
-  static: ['./src/index.html']
+  build: ['./www/*', './www/**/*']
 };
 
 /*
@@ -21,9 +21,15 @@ gulp.task('clean', function() {
 */
 gulp.task('compile', function() {
   return gulp.src(paths.ts)
-    .pipe(typescript())
-    .pipe(concat('script.js'))
-    .pipe(minify())
+    .pipe(ts({
+      outFile: 'script.js'
+    }))
+    .pipe(minify({
+      noSource: true,
+      ext: {
+        min: '.min.js'
+      }
+    }))
     .pipe(gulp.dest('www/'));
 });
 
