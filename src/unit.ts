@@ -3,14 +3,20 @@
 */
 
 class Unit {
-  tags: string[];
+  handlers: Handler[];
+  maxHealth: number;
   health: number;
+  tags: string[];
+  name: string;
   x: number;
   y: number;
 
-  constructor(health: number, tags: string[]) {
+  constructor(name: string, health: number, tags: string[], handlers: Handler[] = []) {
+    this.handlers = handlers;
+    this.maxHealth = health;
     this.health = health;
     this.tags = tags;
+    this.name = name;
   }
 
   /*
@@ -20,6 +26,7 @@ class Unit {
     Game.game.map.put(this, x, y);
     this.x = x;
     this.y = y;
+    this.emit(new SpawnSignal(this));
   }
 
   /*
@@ -28,7 +35,35 @@ class Unit {
   move(x: number, y: number): void {
     Game.game.map.put(null, this.x, this.y);
     Game.game.map.put(this, x, y);
+    let oldx = this.x;
+    let oldy = this.y;
     this.x = x;
     this.y = y;
+    this.emit(new MoveSignal(this, oldx, oldy));
+  }
+
+  /*
+    Emits a signal to every other unit
+  */
+  emit(signal: Signal) {
+    for (var x = 0; x < Map.WIDTH; x++) {
+      for (var y = 0; y < Map.HEIGHT; y++) {
+        let unit: Unit = Game.game.map.get(x, y);
+        if (unit !== null) {
+          unit.trigger(signal);
+        }
+      }
+    }
+  }
+
+  /*
+    Triggers every handler for a certain signal
+  */
+  trigger(signal: Signal) {
+    for (var a = 0; a < this.handlers.length; a++) {
+      if (this.handlers[a].trigger === signal.type) {
+        this.handlers[a].activate(signal, this);
+      }
+    }
   }
 }

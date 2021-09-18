@@ -33,6 +33,10 @@ class Renderer {
         this.ctx.strokeRect(x * Renderer.TILE_SIZE, y * Renderer.TILE_SIZE, Renderer.TILE_SIZE, Renderer.TILE_SIZE);
       }
     }
+    this.ctx.fillRect(0, 500, 500, 200);
+    this.ctx.fillStyle = 'white';
+    this.ctx.font = '20px serif';
+    this.ctx.fillText('Dungeon Chess' , 0, 525);
 
     // Schedule the next frame
     let that = this;
