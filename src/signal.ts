@@ -13,10 +13,11 @@ class Signal {
   Gets emitted when a Unit is spawned
 */
 class SpawnSignal extends Signal {
+  static readonly type: string = 'spawn';
   unit: Unit;
 
   constructor(unit: Unit) {
-    super('spawn');
+    super(SpawnSignal.type);
     this.unit = unit;
   }
 }
@@ -25,12 +26,13 @@ class SpawnSignal extends Signal {
   Gets emitted when a Unit moves
 */
 class MoveSignal extends Signal {
+  static readonly type: string = 'move';
   oldx: number;
   oldy: number;
   unit: Unit;
 
   constructor(unit: Unit, oldx: number, oldy: number) {
-    super('move');
+    super(MoveSignal.type);
     this.unit = unit;
     this.oldx = oldx;
     this.oldy = oldy;

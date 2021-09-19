@@ -4,22 +4,26 @@
 
 class Unit {
   frames: HTMLImageElement[];
+  properties: string[];
   handlers: Handler[];
   clickable: boolean;
   maxHealth: number;
+  spells: Spell[];
   health: number;
   tags: string[];
   name: string;
   x: number;
   y: number;
 
-  constructor(name: string, health: number, tags: string[] = [], handlers: Handler[] = []) {
-    this.handlers = handlers;
+  constructor(name: string, health: number) {
     this.maxHealth = health;
     this.clickable = true;
+    this.properties = [];
     this.health = health;
-    this.tags = tags;
+    this.handlers = [];
+    this.spells = [];
     this.name = name;
+    this.tags = [];
   }
 
   /*
@@ -37,8 +41,9 @@ class Unit {
   /*
     Sets whether or not this Unit is clickable
   */
-  setClickable(clickable: boolean) {
+  setClickable(clickable: boolean): Unit {
     this.clickable = clickable;
+    return this;
   }
 
   /*
@@ -82,10 +87,35 @@ class Unit {
     Triggers every handler for a certain signal
   */
   trigger(signal: Signal): void {
-    for (const handler in this.handlers) {
-      if (handler.trigger === signal.type) {
-        handler.activate(signal, this);
+    for (const a in this.handlers) {
+      if (this.handlers[a].trigger === signal.type) {
+        this.handlers[a].activate(signal, this);
       }
     }
+  }
+
+  /*
+    Adds a spell to this unit
+  */
+  addSpell(spell: Spell): Unit {
+    this.spells.push(spell);
+    return this;
+  }
+
+  /*
+    Adds a passive property to this unit
+  */
+  addProperty(property: string, trigger: string, activate: (signal: Signal, self: Unit) => void): Unit {
+    this.handlers.push(new Handler(trigger, activate));
+    this.properties.push(property);
+    return this;
+  }
+
+  /*
+    Adds a tag to this unit
+  */
+  addTag(tag: string): Unit {
+    this.tags.push(tag);
+    return this;
   }
 }

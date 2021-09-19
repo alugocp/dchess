@@ -17,12 +17,17 @@ class Bestiary {
     Bat enemy
   */
   static getBat(): Unit {
-    return new Unit('Bat', 20, ['flying'], [new Handler('spawn', (signal: Signal, self: Unit): void => {
-      const data: SpawnSignal = signal as SpawnSignal;
-      if (data.unit === self) {
-        console.log('A bat has spawned!');
-      }
-    })])
-      .setFrames('bat.png');
+    return new Unit('Bat', 20)
+      .setFrames('bat.png')
+      .addTag('flying')
+      .addProperty('Friendly - this unit introduces itself with a console.log() message', SpawnSignal.type, (signal: Signal, self: Unit): void => {
+        const data: SpawnSignal = signal as SpawnSignal;
+        if (data.unit === self) {
+          console.log('A bat has spawned!');
+        }
+      })
+      .addSpell(new Spell('Bite - the bat bites a target', (self: Unit) => {
+        console.log('Chomp');
+      }));
   }
 }
