@@ -25,12 +25,20 @@ class Unit {
   /*
     Adds an animation to this Unit
   */
-  setFrames(...frames: string[]) {
+  setFrames(...frames: string[]): Unit {
     this.frames = frames.map(x => {
-      let img = new Image();
+      const img = new Image();
       img.src = `img/${x}`;
       return img;
     });
+    return this;
+  }
+
+  /*
+    Sets whether or not this Unit is clickable
+  */
+  setClickable(clickable: boolean) {
+    this.clickable = clickable;
   }
 
   /*
@@ -49,8 +57,8 @@ class Unit {
   move(x: number, y: number): void {
     Game.game.map.put(null, this.x, this.y);
     Game.game.map.put(this, x, y);
-    let oldx = this.x;
-    let oldy = this.y;
+    const oldx = this.x;
+    const oldy = this.y;
     this.x = x;
     this.y = y;
     this.emit(new MoveSignal(this, oldx, oldy));
@@ -60,9 +68,9 @@ class Unit {
     Emits a signal to every other unit
   */
   emit(signal: Signal): void {
-    for (var x = 0; x < Map.WIDTH; x++) {
-      for (var y = 0; y < Map.HEIGHT; y++) {
-        let unit: Unit = Game.game.map.get(x, y);
+    for (let x = 0; x < Map.WIDTH; x++) {
+      for (let y = 0; y < Map.HEIGHT; y++) {
+        const unit: Unit = Game.game.map.get(x, y);
         if (unit !== null) {
           unit.trigger(signal);
         }
@@ -74,9 +82,9 @@ class Unit {
     Triggers every handler for a certain signal
   */
   trigger(signal: Signal): void {
-    for (var a = 0; a < this.handlers.length; a++) {
-      if (this.handlers[a].trigger === signal.type) {
-        this.handlers[a].activate(signal, this);
+    for (const handler in this.handlers) {
+      if (handler.trigger === signal.type) {
+        handler.activate(signal, this);
       }
     }
   }

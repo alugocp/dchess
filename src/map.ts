@@ -9,9 +9,9 @@ class Map {
 
   constructor() {
     this.tiles = [];
-    for(var a = 0; a < Map.WIDTH; a++) {
+    for (let a = 0; a < Map.WIDTH; a++) {
       this.tiles.push([]);
-      for(var b = 0; b < Map.HEIGHT; b++) {
+      for(let b = 0; b < Map.HEIGHT; b++) {
         this.tiles[a].push(null);
       }
     }

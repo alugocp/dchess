@@ -1,12 +1,15 @@
 # Dungeon Chess
 Just a cool little game prototype
 
-## Build
+### Build
 ```
 ionic build
 ```
 
-## Serve
+### Serve
 ```
 ionic serve
 ```
+
+## Notes
+- [TSLint rules](https://github.com/buzinas/tslint-eslint-rules)

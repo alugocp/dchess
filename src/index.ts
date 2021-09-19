@@ -15,13 +15,13 @@ class Game {
     this.renderer = new Renderer(this.canvas);
     this.console = new Console(this.canvas);
     this.map = new Map();
-    let that = this;
-    this.canvas.onclick = function(e) {
-      let rect = that.canvas.getBoundingClientRect();
-      let x = e.clientX - rect.x;
-      let y = e.clientY - rect.y;
+    const that = this;
+    this.canvas.onclick = (e) => {
+      const rect = that.canvas.getBoundingClientRect();
+      const x = e.clientX - rect.x;
+      const y = e.clientY - rect.y;
       if (y < 500) {
-        let unit: Unit = that.map.get(Math.floor(x / Renderer.TILE_SIZE), Math.floor(y / Renderer.TILE_SIZE));
+        const unit: Unit = that.map.get(Math.floor(x / Renderer.TILE_SIZE), Math.floor(y / Renderer.TILE_SIZE));
         that.console.clear();
         if (unit !== null && unit.clickable) {
           that.console.append(`${unit.name} (${unit.health}/${unit.maxHealth})`);

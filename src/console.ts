@@ -46,7 +46,7 @@ class Console {
     Handles when the Console is clicked
   */
   click(y: number): void {
-    let index = Math.floor(y / 25);
+    const index = Math.floor(y / 25);
     if (index < this.lines.length && this.lines[index].click !== null) {
       this.lines[index].click();
     }
@@ -61,7 +61,7 @@ class Console {
     this.ctx.fillRect(0, 0, 500, 200);
     this.ctx.fillStyle = 'white';
     this.ctx.font = '20px serif';
-    for (var a = 0; a < this.lines.length; a++) {
+    for (let a = 0; a < this.lines.length; a++) {
       this.ctx.fillText(this.lines[a].msg, 5, (a + 1) * 25);
     }
     this.ctx.translate(0, -500);

@@ -22,9 +22,9 @@ class Renderer {
     this.ctx.fillStyle = 'black';
     this.ctx.lineWidth = 2;
     const half = Renderer.TILE_SIZE/2;
-    for (var x = 0; x < Map.WIDTH; x++) {
-      for (var y = 0; y < Map.HEIGHT; y++) {
-        let unit = Game.game.map.get(x, y);
+    for (let x = 0; x < Map.WIDTH; x++) {
+      for (let y = 0; y < Map.HEIGHT; y++) {
+        const unit = Game.game.map.get(x, y);
         if (unit !== null) {
           if (unit.frames) {
             this.ctx.translate(x * Renderer.TILE_SIZE, y * Renderer.TILE_SIZE)
@@ -45,7 +45,7 @@ class Renderer {
     Game.game.console.draw();
 
     // Schedule the next frame
-    let that = this;
+    const that = this;
     setTimeout(() => that.frame(), 250);
   }
 }
