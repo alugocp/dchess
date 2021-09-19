@@ -1,7 +1,6 @@
-function initialize(): void {
-  Game.game = new Game();
-  Game.game.start();
-}
+/*
+  This class is the central data structure for the game logic
+*/
 
 class Game {
   static game: Game;
