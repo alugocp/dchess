@@ -6,7 +6,6 @@ class Renderer {
   static readonly TILE_SIZE: number = 100;
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
-  selected: Unit = null;
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
@@ -43,17 +42,7 @@ class Renderer {
         this.ctx.strokeRect(x * Renderer.TILE_SIZE, y * Renderer.TILE_SIZE, Renderer.TILE_SIZE, Renderer.TILE_SIZE);
       }
     }
-    this.ctx.fillRect(0, 500, 500, 200);
-    this.ctx.fillStyle = 'white';
-    this.ctx.font = '20px serif';
-    if (this.selected !== null) {
-      this.ctx.fillText(`${this.selected.name} (${this.selected.health}/${this.selected.maxHealth})`, 0, 525);
-      for (var a = 0; a < this.selected.tags.length; a++) {
-        this.ctx.fillText(this.selected.tags[a], 0, 550 + (a * 25));
-      }
-    } else {
-      this.ctx.fillText('Dungeon Chess' , 0, 525);
-    }
+    Game.game.console.draw();
 
     // Schedule the next frame
     let that = this;

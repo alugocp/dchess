@@ -7,22 +7,28 @@ class Game {
   static game: Game;
   canvas: HTMLCanvasElement;
   renderer: Renderer;
+  console: Console;
   map: Map;
 
   constructor() {
     this.canvas = document.getElementById('canvas') as HTMLCanvasElement;
     this.renderer = new Renderer(this.canvas);
+    this.console = new Console(this.canvas);
     this.map = new Map();
     let that = this;
     this.canvas.onclick = function(e) {
       let rect = that.canvas.getBoundingClientRect();
-      let x = Math.floor((e.clientX - rect.x) / Renderer.TILE_SIZE);
-      let y = Math.floor((e.clientY - rect.y) / Renderer.TILE_SIZE);
-      let unit: Unit = that.map.get(x, y);
-      if (unit !== null && unit.clickable) {
-        that.renderer.selected = unit;
+      let x = e.clientX - rect.x;
+      let y = e.clientY - rect.y;
+      if (y < 500) {
+        let unit: Unit = that.map.get(Math.floor(x / Renderer.TILE_SIZE), Math.floor(y / Renderer.TILE_SIZE));
+        that.console.clear();
+        if (unit !== null && unit.clickable) {
+          that.console.append(`${unit.name} (${unit.health}/${unit.maxHealth})`);
+          that.console.append(unit.tags.join(', '));
+        }
       } else {
-        that.renderer.selected = null;
+        that.console.click(y - 500);
       }
     }
   }
