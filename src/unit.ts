@@ -4,6 +4,7 @@
 
 class Unit {
   handlers: Handler[];
+  clickable: boolean;
   maxHealth: number;
   health: number;
   tags: string[];
@@ -11,9 +12,10 @@ class Unit {
   x: number;
   y: number;
 
-  constructor(name: string, health: number, tags: string[], handlers: Handler[] = []) {
+  constructor(name: string, health: number, tags: string[] = [], handlers: Handler[] = []) {
     this.handlers = handlers;
     this.maxHealth = health;
+    this.clickable = true;
     this.health = health;
     this.tags = tags;
     this.name = name;
@@ -45,7 +47,7 @@ class Unit {
   /*
     Emits a signal to every other unit
   */
-  emit(signal: Signal) {
+  emit(signal: Signal): void {
     for (var x = 0; x < Map.WIDTH; x++) {
       for (var y = 0; y < Map.HEIGHT; y++) {
         let unit: Unit = Game.game.map.get(x, y);
@@ -59,7 +61,7 @@ class Unit {
   /*
     Triggers every handler for a certain signal
   */
-  trigger(signal: Signal) {
+  trigger(signal: Signal): void {
     for (var a = 0; a < this.handlers.length; a++) {
       if (this.handlers[a].trigger === signal.type) {
         this.handlers[a].activate(signal, this);

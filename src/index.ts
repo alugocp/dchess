@@ -13,8 +13,17 @@ class Game {
     this.canvas = document.getElementById('canvas') as HTMLCanvasElement;
     this.renderer = new Renderer(this.canvas);
     this.map = new Map();
-    this.canvas.onclick = function() {
-      console.log('Canvas clicked!');
+    let that = this;
+    this.canvas.onclick = function(e) {
+      let rect = that.canvas.getBoundingClientRect();
+      let x = Math.floor((e.clientX - rect.x) / Renderer.TILE_SIZE);
+      let y = Math.floor((e.clientY - rect.y) / Renderer.TILE_SIZE);
+      let unit: Unit = that.map.get(x, y);
+      if (unit !== null && unit.clickable) {
+        that.renderer.selected = unit;
+      } else {
+        that.renderer.selected = null;
+      }
     }
   }
 
@@ -23,6 +32,7 @@ class Game {
   */
   start(): void {
     Bestiary.getBat().spawn(0, 0);
+    Bestiary.getRock().spawn(2, 1);
     this.renderer.frame();
   }
 }

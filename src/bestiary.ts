@@ -5,6 +5,15 @@
 class Bestiary {
 
   /*
+    Rock obstacle
+  */
+  static getRock(): Unit {
+    let rock: Unit = new Unit('Rock', 0);
+    rock.clickable = false;
+    return rock;
+  }
+
+  /*
     Bat enemy
   */
   static getBat(): Unit {
