@@ -56,6 +56,10 @@ class Game {
   start(): void {
     Bestiary.bat().spawn(0, 0);
     Bestiary.rock().spawn(2, 1);
+    Bestiary.rat().spawn(3, 0);
+    Bestiary.slime().spawn(2, 3);
+    Bestiary.cactus().spawn(2, 2);
+    Bestiary.spook().spawn(0, 4);
     this.renderer.frame();
   }
 }

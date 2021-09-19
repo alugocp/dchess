@@ -38,3 +38,33 @@ class MoveSignal extends Signal {
     this.oldy = oldy;
   }
 }
+
+/*
+  Gets emitted when a Unit selects another Unit to attack
+*/
+class AttackSignal extends Signal {
+  static readonly type: string = 'attack';
+  attacker: Unit;
+  damage: number;
+  target: Unit;
+
+  constructor(attacker: Unit, target: Unit, damage: number) {
+    super(AttackSignal.type);
+    this.attacker = attacker;
+    this.target = target;
+    this.damage = damage;
+  }
+}
+
+/*
+  Gets emitted when a Unit dies
+*/
+class DeathSignal extends Signal {
+  static readonly type: string = 'death';
+  unit: Unit;
+
+  constructor(unit: Unit) {
+    super(DeathSignal.type);
+    this.unit = unit;
+  }
+}

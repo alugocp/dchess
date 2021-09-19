@@ -70,6 +70,17 @@ class Unit {
   }
 
   /*
+    Causes this user to take damage
+  */
+  takeDamage(damage: number) {
+    this.health -= damage;
+    if (this.health <= 0) {
+      Game.game.map.put(null, this.x, this.y);
+      this.emit(new DeathSignal(this));
+    }
+  }
+
+  /*
     Emits a signal to every other unit
   */
   emit(signal: Signal): void {
