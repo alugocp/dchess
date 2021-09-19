@@ -18,6 +18,7 @@ class Renderer {
   */
   frame(): void {
     this.ctx.fillStyle = 'white';
+    this.ctx.imageSmoothingEnabled = false;
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.fillStyle = 'black';
     this.ctx.lineWidth = 2;
@@ -26,10 +27,18 @@ class Renderer {
       for (var y = 0; y < Map.HEIGHT; y++) {
         let unit = Game.game.map.get(x, y);
         if (unit !== null) {
-          this.ctx.beginPath();
-          this.ctx.arc((x * Renderer.TILE_SIZE) + half, (y * Renderer.TILE_SIZE) + half, half, 0, Math.PI*2);
-          this.ctx.closePath();
-          this.ctx.fill();
+          if (unit.frames) {
+            this.ctx.translate(x * Renderer.TILE_SIZE, y * Renderer.TILE_SIZE)
+            this.ctx.scale(2, 2);
+            this.ctx.drawImage(unit.frames[0], 1, 1);
+            this.ctx.scale(0.5, 0.5);
+            this.ctx.translate(- x * Renderer.TILE_SIZE, - y * Renderer.TILE_SIZE)
+          } else {
+            this.ctx.beginPath();
+            this.ctx.arc((x * Renderer.TILE_SIZE) + half, (y * Renderer.TILE_SIZE) + half, half, 0, Math.PI*2);
+            this.ctx.closePath();
+            this.ctx.fill();
+          }
         }
         this.ctx.strokeRect(x * Renderer.TILE_SIZE, y * Renderer.TILE_SIZE, Renderer.TILE_SIZE, Renderer.TILE_SIZE);
       }

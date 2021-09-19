@@ -3,6 +3,7 @@
 */
 
 class Unit {
+  frames: HTMLImageElement[];
   handlers: Handler[];
   clickable: boolean;
   maxHealth: number;
@@ -19,6 +20,17 @@ class Unit {
     this.health = health;
     this.tags = tags;
     this.name = name;
+  }
+
+  /*
+    Adds an animation to this Unit
+  */
+  setFrames(...frames: string[]) {
+    this.frames = frames.map(x => {
+      let img = new Image();
+      img.src = `img/${x}`;
+      return img;
+    });
   }
 
   /*
