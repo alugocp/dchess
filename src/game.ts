@@ -4,7 +4,7 @@
 
 class Game {
   static game: Game;
-  selection: (target: Unit) => void;
+  selection: (x: number, y: number) => void;
   canvas: HTMLCanvasElement;
   renderer: Renderer;
   console: Console;
@@ -22,20 +22,18 @@ class Game {
       const x = e.clientX - rect.x;
       const y = e.clientY - rect.y;
       if (y < 500) {
-        const unit: Unit = that.map.get(Math.floor(x / Renderer.TILE_SIZE), Math.floor(y / Renderer.TILE_SIZE));
+        const ux = Math.floor(x / Renderer.TILE_SIZE);
+        const uy = Math.floor(y / Renderer.TILE_SIZE);
+        const unit: Unit = that.map.get(ux, uy);
         that.console.clear();
         if (that.selection !== null) {
-          if (unit !== null && unit.clickable) {
-            that.selection(unit);
-          }
+          that.selection(ux, uy);
           that.selection = null;
-        } else {
-          if (unit !== null && unit.clickable) {
-            that.console.append(`${unit.name} (${unit.health}/${unit.maxHealth})`);
-            that.console.append(unit.tags.join(', '));
-            unit.properties.map((prop) => that.console.append(prop));
-            unit.spells.map((spell) => that.console.append(spell.description, () => spell.effect(unit)));
-          }
+        } else if (unit !== null && unit.clickable) {
+          that.console.append(`${unit.name} (${unit.health}/${unit.maxHealth})`);
+          that.console.append(unit.tags.join(', '));
+          unit.properties.map((prop) => that.console.append(prop));
+          unit.spells.map((spell) => that.console.append(spell.description, () => spell.effect(unit)));
         }
       } else {
         that.console.click(y - 500);
@@ -46,7 +44,7 @@ class Game {
   /*
     Tells the game to wait for a selection
   */
-  select(effect: (target: Unit) => void): void {
+  select(effect: (x: number, y: number) => void): void {
     this.console.clear();
     this.console.append('Please select a unit');
     this.selection = effect;

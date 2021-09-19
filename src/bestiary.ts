@@ -20,14 +20,14 @@ class Bestiary {
     return new Unit('Bat', 20)
       .setFrames('bat.png')
       .addTag('flying')
-      .addProperty('Friendly - this unit introduces itself with a console.log() message', SpawnSignal.type, (signal: Signal, self: Unit): void => {
+      .addProperty(new Property('Friendly - this unit introduces itself with a console.log() message', SpawnSignal.type, (signal: Signal, self: Unit): void => {
         const data: SpawnSignal = signal as SpawnSignal;
         if (data.unit === self) {
           console.log('A bat has spawned!');
         }
-      })
+      }))
       .addSpell(new Spell('Bite - the bat bites a target', (self: Unit) => {
-        Game.game.select((target: Unit) => {
+        Game.game.select((x: number, y: number) => {
           Game.game.console.append('The bat bit someone, oh no');
         });
       }));

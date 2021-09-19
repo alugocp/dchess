@@ -105,9 +105,9 @@ class Unit {
   /*
     Adds a passive property to this unit
   */
-  addProperty(property: string, trigger: string, activate: (signal: Signal, self: Unit) => void): Unit {
-    this.handlers.push(new Handler(trigger, activate));
-    this.properties.push(property);
+  addProperty(property: Property): Unit {
+    this.handlers.push(new Handler(property.trigger, property.effect));
+    this.properties.push(property.description);
     return this;
   }
 
