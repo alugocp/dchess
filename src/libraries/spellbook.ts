@@ -10,7 +10,7 @@ class Spellbook {
   static move(): Spell {
     return new Spell('Move', (self: Unit) => {
       Game.game.select((x: number, y: number) => {
-        if(Game.game.map.get(x, y) === null) {
+        if (Game.game.map.get(x, y) === null) {
           self.move(x, y);
         }
       });

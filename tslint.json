@@ -3,6 +3,7 @@
     "tslint:recommended"
   ],
   "rules": {
+    "whitespace": [true, "check-branch", "check-operator", "check-typecast"],
     "no-irregular-whitespace": [true],
     "max-classes-per-file": [false],
     "quotemark": [true, "single"],

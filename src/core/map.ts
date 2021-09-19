@@ -11,7 +11,7 @@ class Map {
     this.tiles = [];
     for (let a = 0; a < Map.WIDTH; a++) {
       this.tiles.push([]);
-      for(let b = 0; b < Map.HEIGHT; b++) {
+      for (let b = 0; b < Map.HEIGHT; b++) {
         this.tiles[a].push(null);
       }
     }
@@ -28,6 +28,6 @@ class Map {
     Places a Unit at x,y on the map
   */
   put(unit: Unit, x: number, y: number): Unit {
-    return this.tiles[x][y]=unit;
+    return this.tiles[x][y] = unit;
   }
 }
