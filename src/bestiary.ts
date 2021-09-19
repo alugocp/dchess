@@ -27,7 +27,9 @@ class Bestiary {
         }
       })
       .addSpell(new Spell('Bite - the bat bites a target', (self: Unit) => {
-        console.log('Chomp');
+        Game.game.select((target: Unit) => {
+          Game.game.console.append('The bat bit someone, oh no');
+        });
       }));
   }
 }
