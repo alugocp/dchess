@@ -24,7 +24,23 @@ class Console {
     Adds a line or lines to the Console
   */
   append(msg: string, click: () => void = null): void {
-    this.lines.push(new Line(msg, click));
+    if (this.ctx.measureText(msg).width > 490) {
+      let line = [];
+      let stack = msg.split(' ');
+      while (stack.length > 0) {
+        line.push(stack.shift());
+        if (this.ctx.measureText(line.join(' ')).width > 490) {
+          if (line.length > 1) {
+            stack.unshift(line.pop());
+          }
+          this.lines.push(new Line(line.join(' '), click));
+          line = [];
+        }
+      }
+      this.lines.push(new Line(line.join(' '), click));
+    } else {
+      this.lines.push(new Line(msg, click));
+    }
   }
 
   /*
