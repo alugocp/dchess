@@ -26,7 +26,7 @@ class Console {
   append(msg: string, click: () => void = null): void {
     if (this.ctx.measureText(msg).width > 490) {
       let line = [];
-      let stack = msg.split(' ');
+      const stack = msg.split(' ');
       while (stack.length > 0) {
         line.push(stack.shift());
         if (this.ctx.measureText(line.join(' ')).width > 490) {

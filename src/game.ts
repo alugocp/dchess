@@ -33,12 +33,8 @@ class Game {
           if (unit !== null && unit.clickable) {
             that.console.append(`${unit.name} (${unit.health}/${unit.maxHealth})`);
             that.console.append(unit.tags.join(', '));
-            for (const a in unit.properties) {
-              that.console.append(unit.properties[a]);
-            }
-            for (const a in unit.spells) {
-              that.console.append(unit.spells[a].description, () => unit.spells[a].effect(unit));
-            }
+            unit.properties.map((prop) => that.console.append(prop));
+            unit.spells.map((spell) => that.console.append(spell.description, () => spell.effect(unit)));
           }
         }
       } else {

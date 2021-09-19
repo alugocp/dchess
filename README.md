@@ -2,13 +2,20 @@
 Just a cool little game prototype
 
 ### Build
-```
+``` bash
 ionic build
+# or
+gulp build
 ```
 
 ### Serve
-```
+``` bash
 ionic serve
+```
+
+### Lint
+``` bash
+gulp lint
 ```
 
 ## Notes
