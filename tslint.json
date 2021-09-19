@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "tslint:recommended"
+  ],
+  "rules": {
+    "ter-no-irregular-whitespace": [true],
+    "quotemark": [true, "single"]
+  }
+}

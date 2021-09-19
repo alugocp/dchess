@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 const ts = require('gulp-typescript');
 const concat = require('gulp-concat');
+const tslint = require('gulp-tslint');
 const minify = require('gulp-minify');
 const del = require('del');
 const paths = {
@@ -46,4 +47,13 @@ gulp.task('copy', function() {
 */
 gulp.task('build', gulp.series('clean', 'compile', 'copy'), function() {
   return null;
+});
+
+/*
+  Lint the TypeScript source
+*/
+gulp.task('lint', function() {
+  return gulp.src([...paths.ts, './gulpfile.js'])
+    .pipe(tslint({configuration: './tslint.json'}))
+    .pipe(tslint.report());
 });
