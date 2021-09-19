@@ -46,7 +46,7 @@ class Game {
   */
   select(effect: (x: number, y: number) => void): void {
     this.console.clear();
-    this.console.append('Please select a unit');
+    this.console.append('Please select a tile');
     this.selection = effect;
   }
 
@@ -54,8 +54,8 @@ class Game {
     Initializes the game renderer
   */
   start(): void {
-    Bestiary.getBat().spawn(0, 0);
-    Bestiary.getRock().spawn(2, 1);
+    Bestiary.bat().spawn(0, 0);
+    Bestiary.rock().spawn(2, 1);
     this.renderer.frame();
   }
 }

@@ -7,7 +7,7 @@ class Bestiary {
   /*
     Rock obstacle
   */
-  static getRock(): Unit {
+  static rock(): Unit {
     return new Unit('Rock', 0)
       .setFrames('rock.png')
       .setClickable(false);
@@ -16,7 +16,7 @@ class Bestiary {
   /*
     Bat enemy
   */
-  static getBat(): Unit {
+  static bat(): Unit {
     return new Unit('Bat', 20)
       .setFrames('bat.png')
       .addTag('flying')
@@ -26,6 +26,7 @@ class Bestiary {
           console.log('A bat has spawned!');
         }
       }))
+      .addSpell(Spellbook.move())
       .addSpell(new Spell('Bite - the bat bites a target', (self: Unit) => {
         Game.game.select((x: number, y: number) => {
           Game.game.console.append('The bat bit someone, oh no');
