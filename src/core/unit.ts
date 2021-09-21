@@ -8,6 +8,7 @@ class Unit {
   handlers: Handler[];
   clickable: boolean;
   maxHealth: number;
+  playable: boolean;
   spells: Spell[];
   health: number;
   tags: string[];
@@ -18,6 +19,7 @@ class Unit {
   constructor(name: string, health: number) {
     this.maxHealth = health;
     this.clickable = true;
+    this.playable = false;
     this.properties = [];
     this.health = health;
     this.handlers = [];
@@ -43,6 +45,14 @@ class Unit {
   */
   setClickable(clickable: boolean): Unit {
     this.clickable = clickable;
+    return this;
+  }
+
+  /*
+    Sets whether or not this Unit is playable
+  */
+  setPlayable(playable: boolean): Unit {
+    this.playable = playable;
     return this;
   }
 
@@ -73,6 +83,9 @@ class Unit {
     Causes this user to take damage
   */
   takeDamage(damage: number) {
+    if (!this.clickable) {
+      return;
+    }
     this.health -= damage;
     if (this.health <= 0) {
       Game.game.map.put(null, this.x, this.y);

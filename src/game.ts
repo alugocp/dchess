@@ -31,9 +31,11 @@ class Game {
           that.selection = null;
         } else if (unit !== null && unit.clickable) {
           that.console.append(`${unit.name} (${unit.health}/${unit.maxHealth})`);
-          that.console.append(unit.tags.join(', '));
-          unit.properties.map((prop) => that.console.append(prop));
-          unit.spells.map((spell) => that.console.append(spell.description, () => spell.effect(unit)));
+          that.console.append(unit.tags.length ? ('Tags: ' + unit.tags.join(', ')) : '');
+          if (unit.playable) {
+            unit.properties.map((prop) => that.console.append(prop));
+            unit.spells.map((spell) => that.console.append(spell.description, () => spell.effect(unit)));
+          }
         }
       } else {
         that.console.click(y - 500);
@@ -60,6 +62,8 @@ class Game {
     Bestiary.slime().spawn(2, 3);
     Bestiary.cactus().spawn(2, 2);
     Bestiary.spook().spawn(0, 4);
+    Bestiary.rock().spawn(4, 4);
+    Bestiary.ponchoWarrior().spawn(4, 2);
     this.renderer.frame();
   }
 }

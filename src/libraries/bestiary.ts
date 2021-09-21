@@ -65,4 +65,15 @@ class Bestiary {
       .setFrames('spook.png')
       .addSpell(Spellbook.move(2));
   }
+
+  /*
+    Poncho Warrior hero
+  */
+  static ponchoWarrior(): Unit {
+    return new Unit('Poncho Warrior', 40)
+      .setFrames('poncho.png')
+      .setPlayable(true)
+      .addSpell(Spellbook.move(1))
+      .addSpell(Spellbook.smash());
+  }
 }

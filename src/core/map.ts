@@ -21,6 +21,9 @@ class Map {
     Grabs the Unit currently at x,y on the map
   */
   get(x: number, y: number): Unit {
+    if (x < 0 || y < 0 || x >= Map.WIDTH || y >= Map.HEIGHT) {
+      return null;
+    }
     return this.tiles[x][y];
   }
 

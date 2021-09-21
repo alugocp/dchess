@@ -34,4 +34,20 @@ class Spellbook {
       });
     });
   }
+
+  /*
+    Smash spell
+  */
+  static smash(): Spell {
+    return new Spell(`Smash - Deals 4 damage to adjacent units`, (self: Unit) => {
+      for (let dx = -1; dx < 2; dx++) {
+        for (let dy = -1; dy < 2; dy++) {
+          const unit: Unit = Game.game.map.get(self.x + dx, self.y + dy);
+          if (unit !== null && unit !== self) {
+            unit.takeDamage(4);
+          }
+        }
+      }
+    });
+  }
 }
