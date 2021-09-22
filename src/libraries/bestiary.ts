@@ -74,6 +74,11 @@ class Bestiary {
       .setFrames('poncho.png')
       .setPlayable(true)
       .addSpell(Spellbook.move(1))
-      .addSpell(Spellbook.smash());
+      .addSpell(Spellbook.smash())
+      .addSpell(Spellbook.attack('Punch', 1))
+      .addSpell(Spellbook.attack('Kick', 2))
+      .addSpell(Spellbook.attack('Slash', 3))
+      .addSpell(Spellbook.attack('Haymaker', 4))
+      .addSpell(Spellbook.attack('Body slam', 5));
   }
 }

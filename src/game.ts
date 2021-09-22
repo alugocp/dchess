@@ -38,7 +38,7 @@ class Game {
           }
         }
       } else {
-        that.console.click(y - 500);
+        that.console.click(x, y - 500);
       }
     }
   }
