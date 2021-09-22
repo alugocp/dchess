@@ -32,10 +32,8 @@ class Game {
         } else if (unit !== null && unit.clickable) {
           that.console.append(`${unit.name} (${unit.health}/${unit.maxHealth})`);
           that.console.append(unit.tags.length ? ('Tags: ' + unit.tags.join(', ')) : '');
-          if (unit.playable) {
-            unit.properties.map((prop) => that.console.append(prop));
-            unit.spells.map((spell) => that.console.append(spell.description, () => spell.effect(unit)));
-          }
+          unit.properties.map((prop) => that.console.append(prop));
+          unit.spells.map((spell) => that.console.append(spell.description, () => spell.effect(unit)));
         }
       } else {
         that.console.click(x, y - 500);
