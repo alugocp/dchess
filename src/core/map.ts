@@ -33,4 +33,20 @@ class Map {
   put(unit: Unit, x: number, y: number): Unit {
     return this.tiles[x][y] = unit;
   }
+
+  /*
+    Returns a list of all units on the map
+  */
+  getAllUnits(): Unit[] {
+    let units: Unit[] = [];
+    for (let x = 0; x < Map.WIDTH; x++) {
+      for (let y = 0; y < Map.HEIGHT; y++) {
+        const unit: Unit = this.get(x, y);
+        if (unit !== null && unit.clickable) {
+          units.push(unit);
+        }
+      }
+    }
+    return units;
+  }
 }

@@ -12,6 +12,8 @@ class Unit {
   spells: Spell[];
   health: number;
   tags: string[];
+  speed: number;
+  dead: boolean;
   name: string;
   x: number;
   y: number;
@@ -23,8 +25,10 @@ class Unit {
     this.properties = [];
     this.health = health;
     this.handlers = [];
+    this.dead = false;
     this.spells = [];
     this.name = name;
+    this.speed = 0;
     this.tags = [];
   }
 
@@ -53,6 +57,14 @@ class Unit {
   */
   setPlayable(playable: boolean): Unit {
     this.playable = playable;
+    return this;
+  }
+
+  /*
+    Sets this unit's speed
+  */
+  setSpeed(speed: number): Unit {
+    this.speed = speed;
     return this;
   }
 
@@ -90,6 +102,7 @@ class Unit {
     if (this.health <= 0) {
       Game.game.map.put(null, this.x, this.y);
       this.emit(new DeathSignal(this));
+      this.dead = true;
     }
   }
 
@@ -141,5 +154,20 @@ class Unit {
   addTag(tag: string): Unit {
     this.tags.push(tag);
     return this;
+  }
+
+  /*
+    Displays this unit's information on the console
+  */
+  display(console: Console): void {
+    console.clear();
+    console.append(`${this.name} (${this.health}/${this.maxHealth})`);
+    console.append(this.tags.length ? ('Tags: ' + this.tags.join(', ')) : '');
+    this.properties.map((prop) => console.append(prop));
+    this.spells.map((spell) => console.append(spell.description, this.playable ? () => {
+      if (Game.game.turnUnit === this) {
+        spell.effect(this);
+      }
+    } : undefined));
   }
 }

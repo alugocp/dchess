@@ -14,6 +14,7 @@ class Spellbook {
         const dy = Math.abs(self.y - y);
         if (dx < max + 1 && dy < max + 1 && !(dx === 0 && dy === 0) && Game.game.map.get(x, y) === null) {
           self.move(x, y);
+          Game.game.nextTurn();
         }
       });
     });
@@ -30,6 +31,7 @@ class Spellbook {
           const signal: AttackSignal = new AttackSignal(self, target, damage);
           self.emit(signal);
           target.takeDamage(signal.damage);
+          Game.game.nextTurn();
         }
       });
     });
@@ -48,6 +50,7 @@ class Spellbook {
           }
         }
       }
+      Game.game.nextTurn();
     });
   }
 }

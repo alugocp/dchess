@@ -73,6 +73,7 @@ class Bestiary {
     return new Unit('Poncho Warrior', 40)
       .setFrames('poncho.png')
       .setPlayable(true)
+      .setSpeed(1)
       .addSpell(Spellbook.move(1))
       .addSpell(Spellbook.smash())
       .addSpell(Spellbook.attack('Punch', 1))
