@@ -33,7 +33,7 @@ class Game {
           that.console.append(`${unit.name} (${unit.health}/${unit.maxHealth})`);
           that.console.append(unit.tags.length ? ('Tags: ' + unit.tags.join(', ')) : '');
           unit.properties.map((prop) => that.console.append(prop));
-          unit.spells.map((spell) => that.console.append(spell.description, () => spell.effect(unit)));
+          unit.spells.map((spell) => that.console.append(spell.description, unit.playable ? () => spell.effect(unit) : undefined));
         }
       } else {
         that.console.click(x, y - 500);
