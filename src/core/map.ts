@@ -38,7 +38,7 @@ class Map {
     Returns a list of all units on the map
   */
   getAllUnits(): Unit[] {
-    let units: Unit[] = [];
+    const units: Unit[] = [];
     for (let x = 0; x < Map.WIDTH; x++) {
       for (let y = 0; y < Map.HEIGHT; y++) {
         const unit: Unit = this.get(x, y);

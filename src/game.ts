@@ -46,15 +46,15 @@ class Game {
   */
   nextTurn(): void {
     if (!this.turnHolders.length) {
-      let speeds = {};
-      let units: Unit[] = this.map.getAllUnits();
-      for (const a in units) {
+      const speeds = {};
+      const units: Unit[] = this.map.getAllUnits();
+      for (const a of Object.keys(units)) {
         if (speeds[units[a].speed] === undefined) {
           speeds[units[a].speed] = [];
         }
         speeds[units[a].speed].push(units[a]);
       }
-      for (const k in speeds) {
+      for (const k of Object.keys(speeds)) {
         speeds[k].sort((a, b) => Math.round(Math.random()) * 2 - 1);
         this.turnHolders = [...speeds[k], ...this.turnHolders];
       }
@@ -69,10 +69,9 @@ class Game {
     if (this.turnUnit.playable) {
       this.turnUnit.display(this.console);
     } else {
-      let that = this;
       this.console.clear();
       this.console.append(`${this.turnUnit.name}'s turn...`);
-      setTimeout(() => that.nextTurn(), 500);
+      setTimeout(() => this.nextTurn(), 500);
     }
   }
 
